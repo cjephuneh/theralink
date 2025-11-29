@@ -86,6 +86,7 @@
 
     <!-- Color theme for browsers -->
     <meta name="theme-color" content="#4f46e5" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -246,7 +247,19 @@
   <body>
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script>
+      // Load gptengineer.js with error handling to prevent blocking if ad blockers interfere
+      (function() {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.gpteng.co/gptengineer.js';
+        script.type = 'module';
+        script.onerror = function() {
+          // Silently fail if script is blocked
+          console.debug('gptengineer.js could not be loaded (may be blocked by ad blocker)');
+        };
+        document.body.appendChild(script);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
